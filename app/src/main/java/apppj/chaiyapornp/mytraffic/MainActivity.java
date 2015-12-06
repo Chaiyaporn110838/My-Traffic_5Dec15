@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //For Icon
-        int[] intIcon = {R.drawable.traffic_01, R.drawable.traffic_02,
+        final int[] intIcon = {R.drawable.traffic_01, R.drawable.traffic_02,
                 R.drawable.traffic_03, R.drawable.traffic_04,
                 R.drawable.traffic_05, R.drawable.traffic_06,
                 R.drawable.traffic_07, R.drawable.traffic_08,
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.traffic_17, R.drawable.traffic_18,
                 R.drawable.traffic_19, R.drawable.traffic_20};
         //for title
-        String[] titleSrting = new String[20];
+        final String[] titleSrting = new String[20];
         titleSrting[0] = "หัวข้อที่ 1";
         titleSrting[1] = "หัวข้อที่ 2";
         titleSrting[2] = "หัวข้อที่ 3";
@@ -74,6 +75,17 @@ public class MainActivity extends AppCompatActivity {
         MyAdapter objMyAdapter = new MyAdapter(MainActivity.this, titleSrting, detailString, intIcon);
 
         trafficListView.setAdapter(objMyAdapter);
+        trafficListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent obgIntent = new Intent(MainActivity.this, DetailActivity.class);
+                obgIntent.putExtra("Title", titleSrting[position]);
+                obgIntent.putExtra("Image", intIcon[position]);
+                obgIntent.putExtra("Index", position);
+                startActivity(obgIntent);
+
+            }
+        });
 
     }   //ListView Controller
 
